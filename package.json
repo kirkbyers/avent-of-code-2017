@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/jest": "^21.1.8",
+    "@types/node": "^8.0.53",
     "concurrently": "^3.5.1",
     "jest": "^21.2.1",
     "nodemon": "^1.12.1",
