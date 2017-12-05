@@ -16,7 +16,7 @@ it('iiii oiii ooii oooi oooo is valid', () => {
   expect(validPassphrase('iiii oiii ooii oooi oooo')).toEqual(true);
 });
 it('oiii ioii iioi iiio is invalid', () => {
-  expect(validPassphrase('oiii ioii iioi iiio ')).toEqual(false);
+  expect(validPassphrase('oiii ioii iioi iiio')).toEqual(false);
 });
 
 it('input.txt has 265 valid anagram passphrases', async () => {
