@@ -42,7 +42,6 @@ export const checkChildrenWeights = (inp: Node): any => {
       }
       return result;
     }, {});
-    console.log(weights);
     Object.keys(weights).forEach((key) => {
       if (weights[key].length === 1) {
         checkChildrenWeights(weights[key][0]);
@@ -53,7 +52,27 @@ export const checkChildrenWeights = (inp: Node): any => {
 };
 
 export const a = (inp: Node) => {
-  const weights = inp.children.reduce((result: any, child: any, index) => {
+  let selectedNode = inp;
+  let weights = childWeights(selectedNode);
+  let prevWeights = null;
+
+  while (Object.keys(weights).length > 1 && selectedNode) {
+    const selectKey = Object.keys(weights).filter((key) => weights[key].length === 1)[0];
+    selectedNode = weights[selectKey][0];
+    prevWeights = weights;
+    weights = childWeights(selectedNode);
+  }
+  return selectedNode.weight - Math.abs(Object.keys(prevWeights).reduce((result, weight, index) => {
+    if (index === 1) {
+      return result - Number(weight);
+    } else {
+      return result + Number(weight);
+    }
+  }, 0));
+};
+
+const childWeights = (inp: Node) => {
+  return inp.children.reduce((result: any, child: any, index) => {
     const childWeight = addChildWeights(child) + child.weight;
     if (result[childWeight] !== undefined) {
       result[childWeight].push(child);
@@ -62,14 +81,6 @@ export const a = (inp: Node) => {
     }
     return result;
   }, {});
-  console.log(weights);
-  return Object.keys(weights).reduce((result, weight, index) => {
-    if (index === 1) {
-      return result - Number(weight);
-    } else {
-      return result + Number(weight);
-    }
-  }, 0);
 };
 
 const addChildWeights = (inp: Node): number => {
