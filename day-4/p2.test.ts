@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 
-import { readFile } from './read-input';
+import { fileToArray } from '../util/file-to-array';
 import { validPassphrase } from './validate-passphrase-anagram';
 
 it('abcde fghij is valid', () => {
@@ -21,7 +21,7 @@ it('oiii ioii iioi iiio is invalid', () => {
 
 it('input.txt has 265 valid anagram passphrases', async () => {
   const inputPath = resolve(__dirname, '../../day-4/input.txt');
-  const inputs = await readFile(inputPath);
+  const inputs = await fileToArray(inputPath);
   let counter = 0;
   inputs.forEach((input) => {
     if (validPassphrase(input)) {

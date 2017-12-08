@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 
-import { fileToArray } from './file-to-array';
+import { fileToArray } from '../util/file-to-array';
 import { stepMazeRecursion, stepMazeWhile } from './maze-crawler';
 
 it('recursionSteps([0 3  0  1  -3]) exits in 5 steps', () => {
@@ -14,7 +14,7 @@ it('whileSteps([0 3  0  1  -3]) exits in 5 steps', () => {
 });
 
 it('./input.txt exits in 374269 steps', async () => {
-  const inputMaze = await fileToArray(resolve(__dirname, '../../day-5/input.txt'));
+  const inputMaze = (await fileToArray(resolve(__dirname, '../../day-5/input.txt'))).map((inp) => Number(inp));
   const result = stepMazeWhile(inputMaze);
   expect(result).toEqual(374269);
 });
