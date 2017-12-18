@@ -1,19 +1,25 @@
 type Dancers = string[];
 
 export const dance = (moves: string[], inpDancers: string = 'abcdefghijklmnop', repeat: number = 1) => {
+  // Save config
+  const configs: string[] = [];
+
+  // Current config of dancers
   let dancers = inpDancers.split('');
-  moves.forEach((move) => {
-    dancers = executeMove(dancers, move);
-  });
-  const danceMap = dancers.map((dancer: string, index: number) => {
-    const oldIndex = inpDancers.indexOf(dancer);
-    return oldIndex;
-  });
-  let counter = 1;
-  while (counter < repeat) {
-    const oldVals = dancers;
-    dancers = danceMap.map((dancerInc) => oldVals[dancerInc]);
-    counter++;
+
+  for (let i = 0; i < repeat; i++) {
+    const currentConfig = dancers.join('');
+    // Check for cycle
+    if (configs.indexOf(currentConfig) > -1) {
+      // i is length of cycle
+      // return member of cycle which will be the config on itteration `repeat`
+      return configs[repeat % i];
+    }
+    configs.push(currentConfig);
+
+    moves.forEach((move) => {
+      dancers = executeMove(dancers, move);
+    });
   }
   return dancers.join('');
 };
